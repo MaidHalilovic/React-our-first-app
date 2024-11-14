@@ -1,0 +1,17 @@
+.newsCardContainer {
+  padding: 10px;
+  width: 350px;
+  height: 250px;
+  border: 1px solid gray;
+  box-shadow: 1px 2px 2px gray;
+  transition: 0.5s;
+}
+
+.newsCardContainer:hover {
+  scale: 1.05;
+  cursor: pointer;
+}
+
+.decription {
+  margin: 10px 0;
+}
