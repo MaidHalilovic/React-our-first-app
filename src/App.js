@@ -134,8 +134,6 @@ function App() {
 
   // })
 
-  // const [broj, setBroj] = useState(13);
-  // const [zadaci, setZadaci] = useState([]);
   // const [loading, setLoading] = useState(false);
 
   //samo za fetchanje podataka
@@ -159,38 +157,56 @@ function App() {
 
   // //state usera jednog i dva defult --- state
 
-  const [tenUsers, setTenUsers] = useState([]);
-
-  useEffect(() => {
-    fetch("https://dummyjson.com/quotes?limit=10")
-      .then((res) => res.json())
-      .then((data) => setTenUsers(data.quotes));
-  }, []);
-
-  console.log(tenUsers, "users");
+  const [broj, setBroj] = useState(0);
+  const [zadaci, setZadaci] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [totalQuotes, setTotalQuotes] = useState(0);
+  const [quotesPerPage, setQuotesPerPage] = useState(10);
+  const [quotesPerPageNew, setQuotesPerPageNew] = useState(1);
+axios
+  .get(`https://dummyjson.com/quotes/${quotesPerPage}`)
+      .then((data) => {
+        console.log(data.data);
+        setTotalQuotes(data.data.total);
+        setZadaci(data.data);
+      });
+    console.log("posle");
+    } [broj, quotesPerPage];
 
   return (
     <div
-      className='container'
-      style={{ fontSize: 32, justifyContent: "space-evenly" }}
-    >
-      <button
-        style={{
-          adding: "5px 10px",
-          border: "none",
-          borderRadius: 12,
-          outline: "none",
-          backgroundColor: "lightblue",
-          color: "black",
-          fontSize: 24,
-          cursor: "pointer",
-        }}
-        // onClick={}
-      >
-        klikni
+    className="container"
+    style={{ fontSize: 32, justifyContent: "space-evenly" }}
+  >
+    {/* <div>
+      <h1>
+        {broj + 1} / {Math.ceil(totalQuotes / quotesPerPage)}
+      </h1>
+    </div> */}
+    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+      <button onClick={() => setBroj((prev) => prev + 1)}>
+        Promeni stranicu
+      </button>
+      <input
+        type="number"
+        value={quotesPerPageNew}
+        onChange={(event) => setQuotesPerPageNew(event.target.value)}
+      />
+      <button onClick={() => setQuotesPerPage(quotesPerPage)}>
+        Promeni broj quots-a
       </button>
     </div>
-  );
+    <div>
+      {/* {zadaci.map((quote) => (
+        <h1 key={quote.id}>{quote.id}</h1>
+      ))} */}
+      {zadaci?.id}
+      {zadaci.quote}
+    </div>
+    )
+    }
+
+  
   //   <div>
   //     {loading ? (
   //       <h1>Fetcha podatke...</h1>
@@ -244,6 +260,12 @@ function App() {
   //   </button>
   // </div>
   // );
-}
+
 
 export default App;
+
+//useEffect--je hook koji omogucava izvrsavanje efekata kao npr api,vremenski intervali nakon
+// prikazivanja u komponenti
+
+//useState -- je hook koji omogucava korisenjem vrednostima unutar komponente
+
