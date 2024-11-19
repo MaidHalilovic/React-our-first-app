@@ -163,109 +163,105 @@ function App() {
   const [totalQuotes, setTotalQuotes] = useState(0);
   const [quotesPerPage, setQuotesPerPage] = useState(10);
   const [quotesPerPageNew, setQuotesPerPageNew] = useState(1);
-axios
-  .get(`https://dummyjson.com/quotes/${quotesPerPage}`)
-      .then((data) => {
-        console.log(data.data);
-        setTotalQuotes(data.data.total);
-        setZadaci(data.data);
-      });
-    console.log("posle");
-    } [broj, quotesPerPage];
 
+  useEffect(() => {
+    setLoading(true);
+    axios.get(`https://dummyjson.com/quotes/${quotesPerPage}`).then((data) => {
+      console.log(data.data);
+      setTotalQuotes(data.data.total);
+      setZadaci(data.data);
+    });
+  }, [quotesPerPage]);
   return (
     <div
-    className="container"
-    style={{ fontSize: 32, justifyContent: "space-evenly" }}
-  >
-    {/* <div>
-      <h1>
-        {broj + 1} / {Math.ceil(totalQuotes / quotesPerPage)}
-      </h1>
-    </div> */}
-    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-      <button onClick={() => setBroj((prev) => prev + 1)}>
-        Promeni stranicu
-      </button>
-      <input
-        type="number"
-        value={quotesPerPageNew}
-        onChange={(event) => setQuotesPerPageNew(event.target.value)}
-      />
-      <button onClick={() => setQuotesPerPage(quotesPerPage)}>
-        Promeni broj quots-a
-      </button>
-    </div>
-    <div>
-      {/* {zadaci.map((quote) => (
+      className='container'
+      style={{ fontSize: 32, justifyContent: "space-evenly" }}
+    >
+      <div>
+        <h1>
+          {broj + 1} / {Math.ceil(totalQuotes / quotesPerPage)}
+        </h1>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <button onClick={() => setBroj((prev) => prev + 1)}>
+          Promeni stranicu
+        </button>
+        <input
+          type='number'
+          value={quotesPerPageNew}
+          onChange={(event) => setQuotesPerPageNew(event.target.value)}
+        />
+        <button onClick={() => setQuotesPerPage(quotesPerPage)}>
+          Promeni broj quots-a
+        </button>
+      </div>
+      <div>
+        {/* {zadaci.map((quote) => (
         <h1 key={quote.id}>{quote.id}</h1>
-      ))} */}
-      {zadaci?.id}
-      {zadaci.quote}
+        ))} */}
+        {zadaci?.id}
+        {zadaci.quote}
+      </div>
     </div>
-    )
-    }
+  );
+}
 
-  
-  //   <div>
-  //     {loading ? (
-  //       <h1>Fetcha podatke...</h1>
-  //     ) : (
-  //       zadaci.map((zadatak) => (
-  //         <h3>
-  //           {zadatak.id}. {zadatak.todo}.
-  //         </h3>
-  //       ))
-  //     )}
-  //   </div>
-  //{" "}
-  // </div>;
+//   <div>
+//     {loading ? (
+//       <h1>Fetcha podatke...</h1>
+//     ) : (
+//       zadaci.map((zadatak) => (
+//         <h3>
+//           {zadatak.id}. {zadatak.todo}.
+//         </h3>
+//       ))
+//     )}
+//   </div>
+//{" "}
+// </div>;
 
-  //react dev
+//react dev
 
-  // <div style={containerStyle}>
-  //   <form>
-  //     <label>
-  //       First name:
-  //       <input
-  //         type='text'
-  //         name='firstName'
-  //         value={FormData.firstName}
-  //         style={{margin: 10, padding: 8, width: "100%" }}
-  //       ></input>
-  //     </label>
-  //   </form>
-  // </div>
+// <div style={containerStyle}>
+//   <form>
+//     <label>
+//       First name:
+//       <input
+//         type='text'
+//         name='firstName'
+//         value={FormData.firstName}
+//         style={{margin: 10, padding: 8, width: "100%" }}
+//       ></input>
+//     </label>
+//   </form>
+// </div>
 
-  // <div className='container' style={{ gap: 50, flexDirection: "column" }}>
-  //   {/* <div style={{ display: "flex", gap: 10 }}>
-  //     <h1>{user.ime}</h1>
-  //     <h1>{user.prezime}</h1>
-  //   </div> */}
+// <div className='container' style={{ gap: 50, flexDirection: "column" }}>
+//   {/* <div style={{ display: "flex", gap: 10 }}>
+//     <h1>{user.ime}</h1>
+//     <h1>{user.prezime}</h1>
+//   </div> */}
 
-  // //   <button
-  //     style={{
-  //       adding: "5px 10px",
-  //       border: "none",
-  //       borderRadius: 12,
-  //       outline: "none",
-  //       backgroundColor: "lightblue",
-  //       color: "black",
-  //       fontSize: 24,
-  //       cursor: "pointer",
-  //     }}
-  //     onClick={}
-  //   >
-  //     klikni
-  //   </button>
-  // </div>
-  // );
-
-
+// //   <button
+//     style={{
+//       adding: "5px 10px",
+//       border: "none",
+//       borderRadius: 12,
+//       outline: "none",
+//       backgroundColor: "lightblue",
+//       color: "black",
+//       fontSize: 24,
+//       cursor: "pointer",
+//     }}
+//     onClick={}
+//   >
+//     klikni
+//   </button>
+// </div>
+// );
 export default App;
 
 //useEffect--je hook koji omogucava izvrsavanje efekata kao npr api,vremenski intervali nakon
 // prikazivanja u komponenti
 
 //useState -- je hook koji omogucava korisenjem vrednostima unutar komponente
-
